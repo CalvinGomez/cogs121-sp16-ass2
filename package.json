@@ -1,5 +1,5 @@
 {
-  "name": "mywebapp",
+  "name": "d3visualizations",
   "version": "0.0.1",
   "scripts": {
     "start": "node server.js"
@@ -10,6 +10,19 @@
     "express": "4.13.4",
     "express-handlebars": "1.2.2",
     "express-session": "1.10.4",
-    "pg": "^4.5.3",
-  }
+    "pg": "4.5.3"
+  },
+  "main": "server.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CalvinGomez/cogs121-sp16-ass2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CalvinGomez/cogs121-sp16-ass2/issues"
+  },
+  "homepage": "https://github.com/CalvinGomez/cogs121-sp16-ass2#readme",
+  "description": ""
 }
