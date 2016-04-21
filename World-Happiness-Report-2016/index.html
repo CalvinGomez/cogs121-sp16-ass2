@@ -21,7 +21,6 @@ Creating a d3 Bar Chart Using World Happiness Data-->
     <script> 
       var width=900, height=300;
       var offsetY=15, roundBand=0.05, theColor="";
-      var clickCount=0, weight=0, multiplier=100; 
       var textColor="", jsonData="";
 
       // initial values for the bar chart...
@@ -77,10 +76,6 @@ Creating a d3 Bar Chart Using World Happiness Data-->
          .attr("font-size", "12px")
          .attr("fill", textColor);
 
-      // update bar chart with web service values...
-      svg.on("click", function() {
-           ++clickCount;
-
            // obtain new values...
            d3.xhr(randomNumbersURL,
              processHappinessData);
@@ -133,10 +128,7 @@ Creating a d3 Bar Chart Using World Happiness Data-->
               .attr("y", function(d) {
                   return height - yScale(d) + offsetY;
               });
-         });
     </script>
-
-    <div class="bubbles"></div>
     </center>
   </body>
 </html>

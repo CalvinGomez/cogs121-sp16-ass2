@@ -1,4 +1,4 @@
-(function($) {
+(function(d3) {
   "use strict";
 
   var data = [
@@ -83,4 +83,4 @@
     console.log("Data", data);
   });
 
-})($);
+})(d3);
