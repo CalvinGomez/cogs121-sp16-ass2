@@ -17,7 +17,8 @@
   // Defining the margins and chart size
   // See margin conventions for more information
   var margin = {top: 20, right: 10, bottom: 100, left: 40},
-      width = 960 - margin.right - margin.left,
+      // width = 960 - margin.right - margin.left,
+      width = 1100 - margin.right - margin.left,
       height = 500 - margin.top - margin.bottom;
 
   var innerWidth  = width  - margin.left - margin.right;
@@ -40,7 +41,7 @@
   xScale.domain(data.map(function (d){ return d.name; }));
 
   // TODO: Fix the yScale domain to scale with any ratings range
-  yScale.domain([0, 5]);
+  yScale.domain([0, 10]);
 
   // Note all these values are hard coded numbers
   // TODO:
@@ -48,13 +49,15 @@
   // 2. Update the x, y, width, and height attributes to appropriate reflect this
   chart
     .selectAll(".bar")
-    .data([10, 20, 30, 40])
-    .enter().append("rect")
-    .attr("class", "bar")
-    .attr("x", function(d, i) { return i*100; })
-    .attr("width", 100)
-    .attr("y", function(d) { return 0; })
-    .attr("height", function(d) { return d*10; });
+    // .data([10, 20, 30, 40])
+    .data(data)
+    .enter()
+      .append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d, i) { return i*100; })
+      .attr("width", 90)
+      .attr("y", function(d) { return 0; })
+      .attr("height", function(d) { return d.rating*50; });
 
   // Orient the x and y axis
   var xAxis = d3.svg.axis().scale(xScale).orient("bottom");
@@ -72,7 +75,11 @@
 
   // ASSIGNMENT PART 1B
   // Grab the delphi data from the server
-  $.get( "/delphidata", function(data) {
+  d3.json("/delphidata", function(err, data) {
+    if (err) {
+        console.log(err);
+        return;
+    }
     console.log("Data", data);
   });
 
