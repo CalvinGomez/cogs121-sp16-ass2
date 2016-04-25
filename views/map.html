@@ -87,7 +87,7 @@
     var zoom = d3.behavior.zoom()
             .scale(projection.scale() * p * Math.PI)
             .scaleExtent([1 << 200, 1 << 25])
-            .translate(projection([-2.1043, 49.1836, ]).map(function (x) {
+            .translate(projection([-117.15, 32.71, ]).map(function (x) {
                 return -x;
             }))
             .on("zoom", zoomed);
