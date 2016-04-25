@@ -54,7 +54,7 @@
     .enter()
       .append("rect")
       .attr("class", "bar")
-      .attr("x", function(d, i) { return i*100; })
+      .attr("x", function(i) { return i*100; })
       .attr("width", 90)
       .attr("y", function(d) { return 0; })
       .attr("height", function(d) { return yScale(d.rating); });
