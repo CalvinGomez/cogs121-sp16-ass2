@@ -38,6 +38,10 @@ app.get('/testmap', function(req, res){
   res.render('map');
 });
 
+app.get('/testBubble', function(req, res){
+    res.render('testBubble');
+});
+
 app.get('/delphidata', function (req, res) {
   // TODO
   // Connect to the DELPHI Database and return the proper information
@@ -46,11 +50,22 @@ app.get('/delphidata', function (req, res) {
   // Task: In the year 2003, retrieve the total number of respondents
   // for each gender. 
   // Display that data using D3 with gender on the x-axis and 
-  // total respondents on the y-axis.
-  return { delphidata: "No data present." }
+  // total respondents on the y-axis. 
+  // return { delphidata: "No data present." }
+  var pgp = require("pg-promise")(/*options*/);
+  var db = pgp("postgres://cogs121_16_user:Delph!4COGS121@delphidata.ucsd.edu/delphibetadb");
+
+  db.any("SELECT * FROM cogs121_16_raw.esri_market_potential_restaurants_2013", [true])
+  // .then(function (data) {
+  .then(data => {
+    console.log("DATA:", data[0]);
+  })
+  // .catch(function (error) {
+  .catch(error => {
+    console.log("ERROR:", error);
+  });
 });
 
-
-http.createServer(app).listen(app.get('port'), function() {
-    console.log('Express server listening on port ' + app.get('port'));
+  http.createServer(app).listen(app.get('port'), function() {
+      console.log('Express server listening on port ' + app.get('port'));
 });
