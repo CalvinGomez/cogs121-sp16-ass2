@@ -10,6 +10,7 @@
     "express": "4.13.4",
     "express-handlebars": "1.2.2",
     "express-session": "1.10.4",
+    "mysql": "2.10.2",
     "pg": "4.5.3"
   },
   "main": "server.js",

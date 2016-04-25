@@ -34,6 +34,10 @@ app.get('/', function(req, res){
   res.render('index');
 });
 
+app.get('/testmap', function(req, res){
+  res.render('testmap');
+});
+
 app.get('/delphidata', function (req, res) {
   // TODO
   // Connect to the DELPHI Database and return the proper information
