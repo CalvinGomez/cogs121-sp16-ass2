@@ -7,7 +7,7 @@
 </head>
 <body>
 	<script>
-		var width = 960, height = 560;
+		var width = 960, height = 660;
 
 		var svg = d3.select( "body" )
 		  .append( "svg" )
@@ -17,9 +17,9 @@
 		var neighborhoods = svg.append( "g" );
 
 		var albersProjection = d3.geo.albers()
-										.scale( 1520 )
+										.scale( 24020 )
 										.rotate( [71.057,0] )
-										.center( [-30, 42.313] )
+										.center( [-46.3, 32.87] )
 										.translate( [width/2,height/2] );
 		var geoPath = d3.geo.path()
     						.projection( albersProjection );
