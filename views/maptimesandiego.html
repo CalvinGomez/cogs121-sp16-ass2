@@ -27,13 +27,13 @@
     						.projection( albersProjection );
 		var geoPathCircle = d3.geo.path()
     						.projection( albersProjection )
-            				.pointRadius(10);
+            				.pointRadius(20);
 		
 		neighborhoods.selectAll( "path" )
 						.data( sandiego_json.features )
 						.enter()
 						.append( "path" )
-						.attr( "fill", "#ccc" )
+						.attr( "fill", "#EBE7E7" )
 						.attr( "d", geoPathArea );
 
 		var rodents = svg.append( "g" );
@@ -42,11 +42,11 @@
 				  .data( rodents_json.features )
 				  .enter()
 				  .append( "path" )
-				  .attr( "fill", "darkblue" )
-				  // .attr("pointRadius", '10')
+				  .attr( "fill", "#81FFBF" )
+				  //.attr("pointRadius", '10')
 				  // .attr( "stroke", "#999" )
 				  .attr( "d", geoPathCircle )
-				  .style('opacity', .55);
+				  .style('opacity', .45);
 				
 	</script>
 </body>
