@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>A D3 map</title>
+	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	<script src="data/sandiego.js"></script>
+</head>
+<body>
+	<script>
+		var width = 960, height = 560;
+
+		var svg = d3.select( "body" )
+		  .append( "svg" )
+		  .attr( "width", width )
+		  .attr( "height", height );
+
+		var neighborhoods = svg.append( "g" );
+
+		var albersProjection = d3.geo.albers()
+										.scale( 1520 )
+										.rotate( [71.057,0] )
+										.center( [-30, 42.313] )
+										.translate( [width/2,height/2] );
+		var geoPath = d3.geo.path()
+    						.projection( albersProjection );
+		neighborhoods.selectAll( "path" )
+						.data( sandiego_json.features )
+						.enter()
+						.append( "path" )
+						.attr( "fill", "#ccc" )
+						.attr( "d", geoPath );
+				
+	</script>
+</body>
+</html>

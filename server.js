@@ -38,6 +38,10 @@ app.get('/testmap', function(req, res){
   res.render('map');
 });
 
+app.get('/maptimesandiego', function(req, res){
+  res.render('maptimesandiego');
+});
+
 app.get('/testBubble', function(req, res){
     res.render('testBubble');
 });
