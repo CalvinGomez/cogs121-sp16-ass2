@@ -2,28 +2,36 @@
 <html>
 <head>
 	<title>A D3 map</title>
-	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+	<link href="css/index.css" rel="stylesheet">
+
+	<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 	<script src="data/sandiego.js"></script>
 	<script src="data/counties.js"></script>
 	<script src="data/rodents.js"></script>
 	<script src="data/san-diego.js"></script>
-	<script src="data/tracts.js"></script>
 	<script src="data/curtracts.js"></script>
-	<script src="data/bg.js"></script>
 	<script src="data/water.js"></script>
 	<script src="data/cbsa.js"></script>
+	
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(window).load(function() {
+			$(".loader").fadeOut("slow");
+		})
+	</script>
 	
 </head>
 <body>
 
+	<div class="loader"></div>
+
 	<script>
 		var width = 960, height = 590;
-
 		var svg = d3.select( "body" )
 		  .append( "svg" )
 		  .attr( "width", width )
 		  .attr( "height", height );
-
 		var albersProjection = d3.geo.albers()
                                         .scale( 22200 )
                                         .rotate( [71.057,0] )
@@ -34,7 +42,6 @@
 		var geoPathCircle = d3.geo.path()
     						.projection( albersProjection )
             				.pointRadius(20);
-
 		// var sanDiegoCounty = svg.append( "g" );
 		// sanDiegoCounty.selectAll( "path" )
 		// 				.data( curtracts.features )
@@ -51,7 +58,6 @@
 		// 				.attr( "fill", "#6468ad" )
 		// 				.attr( "d", geoPathArea )
 		// 				 .style('opacity', .50);
-
 		var streets = svg.append( "g" );
 		streets.selectAll( "path" )
 						.data( curtracts.features )
@@ -61,7 +67,6 @@
 						.attr( "d", geoPathArea )
 						.style({'stroke-width': 0.3, 'stroke': '#E0E0E0', 'stroke-linejoin': 'round'});
 						// .style('opacity', .33);
-
 		var waterLayer = svg.append( "g" );
 		waterLayer.selectAll( "path" )
 						.data( water.features )
@@ -69,7 +74,7 @@
 						.append( "path" )
 						.attr( "fill", "#CCCCCC" )
 						.attr( "d", geoPathArea )
-						.style({'stroke-width': 0.3, 'stroke': '#E0E0E0', 'stroke-linejoin': 'round'})
+						.style({'stroke-width': 0.3, 'stroke': '#E0E0E0', 'stroke-linejoin': 'round'});
 						// .style('opacity', .33);
 
 		var rodents = svg.append( "g" );
