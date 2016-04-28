@@ -8,6 +8,7 @@ var session = require('express-session');
 var dotenv = require('dotenv');
 var pg = require('pg');
 var app = express();
+var gmap=require('googlemaps');
 
 //client id and client secret here, taken from .env (which you need to create)
 dotenv.load();
@@ -46,6 +47,16 @@ app.get('/testBubble', function(req, res){
     res.render('testBubble');
 });
 
+
+var publicConfig = {
+    key: 'AIzaSyB1O7kYkkWMOTnwCot5uYBtPBPy9-OpHTs',
+    stagger_time:       1000, // for elevationPath
+    encode_polylines:   false,
+    secure:             true, // use https
+    proxy:              '' // optional, set a proxy for HTTP requests
+};
+var gmAPI = new gmap(publicConfig);
+
 app.get('/delphidata', function (req, res) {
   // TODO
   // Connect to the DELPHI Database and return the proper information
@@ -75,9 +86,38 @@ app.get('/delphidata', function (req, res) {
     //console.log("ERROR:", error);
   });
     db.any(sqlStr2, [true]).then(data => {
-        console.log("DATA:", data);
+        //console.log("DATA:", data);
+        var i=0;
+        var streetArray=[];
+        while (i<data.length){
+            if(data[i].CITY&&data[i].STRTYP&&data[i].STRNAM){
+                var str= data[i].STRNAM+' '+data[i].STRTYP+', '+data[i].CITY;
+                streetArray.push(str);
+            }
+            i++;
+        }
+        //var xmlhttp = new XMLHttpRequest();
+        //console.log(streetArray);
+        i=0;
+        var coorArray=[];
+
+        while (i<1) {
+            gmAPI.geocode({"address": streetArray[i]}, function (err, result) {
+                console.log(result);
+                console.log(streetArray[i]);
+                console.log(result.results[0].geometry.location);
+                if (err) {throw err} else {
+                    //console.log(result);
+                    var latlng = {'lat': result.results[0].geometry.location.lat, 'lng': result.results[0].geometry.location.lng};
+                    coorArray.push(latlng);
+                }
+            });
+            i++;
+        }
+        //console.log(coorArray);
+
 }).catch(error => {
-        console.log("ERROR:", error);
+        //console.log("ERROR:", error);
 });
 
 });
