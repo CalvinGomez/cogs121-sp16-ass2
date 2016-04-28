@@ -6,6 +6,7 @@
 	<script src="data/sandiego.js"></script>
 	<script src="data/counties.js"></script>
 	<script src="data/rodents.js"></script>
+	<script src="data/san-diego.js"></script>
 	<script src="data/tracts.js"></script>
 	<script src="data/curtracts.js"></script>
 	<script src="data/bg.js"></script>
@@ -16,7 +17,7 @@
 <body>
 
 	<script>
-		var width = 960, height = 660;
+		var width = 960, height = 590;
 
 		var svg = d3.select( "body" )
 		  .append( "svg" )
@@ -33,7 +34,15 @@
 		var geoPathCircle = d3.geo.path()
     						.projection( albersProjection )
             				.pointRadius(20);
-		
+
+		// var sanDiegoCounty = svg.append( "g" );
+		// sanDiegoCounty.selectAll( "path" )
+		// 				.data( curtracts.features )
+		// 				.enter()
+		// 				.append( "path" )
+		// 				.attr( "fill", "#6468AD" )
+		// 				.attr( "d", geoPathArea );
+		// 				// .style('opacity', .30);
 		// var sanDiegoCounty = svg.append( "g" );
 		// sanDiegoCounty.selectAll( "path" )
 		// 				.data( cbsa.features )
