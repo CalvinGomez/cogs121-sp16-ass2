@@ -46,6 +46,21 @@ var layerBuildings = map.append("div")
 var info = map.append("div")
     .attr("class", "info");
 
+
+//test
+var bubble_map = new Datamap({
+    element: document.getElementById("bubbles"),
+    geographyConfig: {
+        popupOnHover: false,
+        highlightOnHover: false
+    },
+    fills: {
+        defaultFill: '#ABDDA4',
+        USA: 'blue',
+        RUS: 'red'
+    }
+});
+
 zoomed();
 
 function zoomed() {
@@ -223,12 +238,5 @@ function formatLocation(p, k) {
     return (p[1] < 0 ? format(-p[1]) + "°S" : format(p[1]) + "°N") + " " + (p[0] < 0 ? format(-p[0]) + "°W" : format(p[0]) + "°E");
 }
 
-function createBubble(){
-    svg.append("g")
-        .attr("class", "bubble")
-        .selectAll("circle")
-        .data(topojson.feature(us, us.objects.counties).features)
-        .enter().append("circle")
-        .attr("transform", function(d) { return "translate(" + path.centroid(d) + ")"; })
-        .attr("r", 100);
-}
+
+
