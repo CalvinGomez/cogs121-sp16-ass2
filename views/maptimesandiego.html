@@ -6,6 +6,11 @@
 	<script src="data/sandiego.js"></script>
 	<script src="data/counties.js"></script>
 	<script src="data/rodents.js"></script>
+	<script src="data/tracts.js"></script>
+	<script src="data/curtracts.js"></script>
+	<script src="data/bg.js"></script>
+	<script src="data/water.js"></script>
+	
 </head>
 <body>
 	<script>
@@ -16,10 +21,8 @@
 		  .attr( "width", width )
 		  .attr( "height", height );
 
-		var neighborhoods = svg.append( "g" );
-
 		var albersProjection = d3.geo.albers()
-                                        .scale( 24020 )
+                                        .scale( 22000 )
                                         .rotate( [71.057,0] )
                                         .center( [-46.3, 32.87] )
                                         .translate( [width/2,height/2] );
@@ -29,24 +32,25 @@
     						.projection( albersProjection )
             				.pointRadius(20);
 		
-		neighborhoods.selectAll( "path" )
-						.data( sandiego_json.features )
+		var sanDiegoCounty = svg.append( "g" );
+		sanDiegoCounty.selectAll( "path" )
+						.data( curtracts.features )
 						.enter()
 						.append( "path" )
-						.attr( "fill", "#EBE7E7" )
-						.attr( "d", geoPathArea );
+						.attr( "fill", "#293850" )
+						.attr( "d", geoPathArea )
+						// .style('opacity', .30);
 
-		var rodents = svg.append( "g" );
-
-		rodents.selectAll( "path" )
-				  .data( rodents_json.features )
-				  .enter()
-				  .append( "path" )
-				  .attr( "fill", "#81FFBF" )
-				  //.attr("pointRadius", '10')
-				  // .attr( "stroke", "#999" )
-				  .attr( "d", geoPathCircle )
-				  .style('opacity', .45);
+		// var rodents = svg.append( "g" );
+		// rodents.selectAll( "path" )
+		// 		  .data( rodents_json.features )
+		// 		  .enter()
+		// 		  .append( "path" )
+		// 		  .attr( "fill", "#81FFBF" )
+		// 		  //.attr("pointRadius", '10')
+		// 		  // .attr( "stroke", "#999" )
+		// 		  .attr( "d", geoPathCircle )
+		// 		  .style('opacity', .45);
 				
 	</script>
 </body>
