@@ -22,7 +22,7 @@
 		  .attr( "height", height );
 
 		var albersProjection = d3.geo.albers()
-                                        .scale( 22000 )
+                                        .scale( 22200 )
                                         .rotate( [71.057,0] )
                                         .center( [-46.3, 32.87] )
                                         .translate( [width/2,height/2] );
@@ -37,20 +37,20 @@
 						.data( curtracts.features )
 						.enter()
 						.append( "path" )
-						.attr( "fill", "#293850" )
+						.attr( "fill", "#6468AD" )
 						.attr( "d", geoPathArea )
 						// .style('opacity', .30);
 
-		// var rodents = svg.append( "g" );
-		// rodents.selectAll( "path" )
-		// 		  .data( rodents_json.features )
-		// 		  .enter()
-		// 		  .append( "path" )
-		// 		  .attr( "fill", "#81FFBF" )
-		// 		  //.attr("pointRadius", '10')
-		// 		  // .attr( "stroke", "#999" )
-		// 		  .attr( "d", geoPathCircle )
-		// 		  .style('opacity', .45);
+		var rodents = svg.append( "g" );
+		rodents.selectAll( "path" )
+				  .data( rodents_json.features )
+				  .enter()
+				  .append( "path" )
+				  .attr( "fill", "#80B1E3" )
+				  //.attr("pointRadius", '10')
+				  // .attr( "stroke", "#999" )
+				  .attr( "d", geoPathCircle )
+				  .style('opacity', .45);
 				
 	</script>
 </body>
