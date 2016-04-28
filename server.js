@@ -42,6 +42,10 @@ app.get('/testBubble', function(req, res){
     res.render('testBubble');
 });
 
+app.get('/maptest', function(req, res){
+    res.render('maptest');
+});
+
 app.get('/delphidata', function (req, res) {
   // TODO
   // Connect to the DELPHI Database and return the proper information
