@@ -27,7 +27,7 @@
 
   // TODO: Input the proper values for the scales
   var xScale = d3.scale.ordinal().rangeRoundBands([0, 10], 0);
-  var yScale = d3.scale.linear().range([30, 0]);
+  var yScale = d3.scale.linear().range([0, 400]);
 
   // Define the chart
   var chart = d3
@@ -42,7 +42,7 @@
   xScale.domain(data.map(function (d){ return d.name; }));
 
   // TODO: Fix the yScale domain to scale with any ratings range
-  yScale.domain([0, 10]);
+  yScale.domain([0, d3.max(data, function(d) { return d.rating; })]);
 
   // Note all these values are hard coded numbers
   // TODO:
@@ -58,7 +58,7 @@
       .attr("x", function(i) { return i*100; })
       .attr("width", 90)
       .attr("y", function(d) { return 0; })
-      .attr("height", function(d) { return d.rating*50; });
+      .attr("height", function(d) { return yScale(d.rating); });
 
   // Orient the x and y axis
   var xAxis = d3.svg.axis().scale(xScale).orient("bottom");
@@ -66,12 +66,18 @@
 
   // TODO: Append X axis
   chart
-    .append("g");
+    .append("g")
+    .attr("class", "x axis")
+      .call(xAxis);
 
 
   // TODO: Append Y axis
   chart
-    .append("g");
+    .append("g")
+    .attr("class", "y axis")
+      .call(yAxis)
+      .attr("transform", "rotate(-180)");
+
 
 
   // ASSIGNMENT PART 1B
