@@ -6,13 +6,9 @@
 	<link href="css/index.css" rel="stylesheet">
 
 	<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-	<script src="data/sandiego.js"></script>
-	<script src="data/counties.js"></script>
 	<script src="data/rodents.js"></script>
-	<script src="data/san-diego.js"></script>
 	<script src="data/curtracts.js"></script>
 	<script src="data/water.js"></script>
-	<script src="data/cbsa.js"></script>
 	
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script type="text/javascript">
@@ -42,22 +38,7 @@
 		var geoPathCircle = d3.geo.path()
     						.projection( albersProjection )
             				.pointRadius(20);
-		// var sanDiegoCounty = svg.append( "g" );
-		// sanDiegoCounty.selectAll( "path" )
-		// 				.data( curtracts.features )
-		// 				.enter()
-		// 				.append( "path" )
-		// 				.attr( "fill", "#6468AD" )
-		// 				.attr( "d", geoPathArea );
-		// 				// .style('opacity', .30);
-		// var sanDiegoCounty = svg.append( "g" );
-		// sanDiegoCounty.selectAll( "path" )
-		// 				.data( cbsa.features )
-		// 				.enter()
-		// 				.append( "path" )
-		// 				.attr( "fill", "#6468ad" )
-		// 				.attr( "d", geoPathArea )
-		// 				 .style('opacity', .50);
+
 		var streets = svg.append( "g" );
 		streets.selectAll( "path" )
 						.data( curtracts.features )
