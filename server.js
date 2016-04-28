@@ -32,7 +32,8 @@ app.set('port', process.env.PORT || 3000);
 
 //routes
 app.get('/', function(req, res){
-  res.render('index');
+  // res.render('index');
+  res.redirect('/maptimesandiego');
 });
 
 app.get('/testmap', function(req, res){
