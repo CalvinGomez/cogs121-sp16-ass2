@@ -10,6 +10,8 @@
 	<script src="data/curtracts.js"></script>
 	<script src="data/bg.js"></script>
 	<script src="data/water.js"></script>
+	<script src="data/cbsa.js"></script>
+	
 	
 </head>
 <body>
@@ -37,9 +39,22 @@
 						.data( curtracts.features )
 						.enter()
 						.append( "path" )
+<<<<<<< HEAD
 						.attr( "fill", "#6468AD" )
+=======
+						.attr( "fill", "black" )
 						.attr( "d", geoPathArea )
-						// .style('opacity', .30);
+						// .style('opacity', .50);
+
+		var streets = svg.append( "g" );
+		streets.selectAll( "path" )
+						.data( curtracts.features )
+						.enter()
+						.append( "path" )
+						.attr( "fill", "black" )
+>>>>>>> 5b827d4cbc746f7c3a1515ff9d0f4faff9426022
+						.attr( "d", geoPathArea )
+						.style('opacity', 0);
 
 		var rodents = svg.append( "g" );
 		rodents.selectAll( "path" )
