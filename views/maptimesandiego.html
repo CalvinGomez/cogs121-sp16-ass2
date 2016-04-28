@@ -12,7 +12,6 @@
 	<script src="data/water.js"></script>
 	<script src="data/cbsa.js"></script>
 	
-	
 </head>
 <body>
 
@@ -52,7 +51,17 @@
 						.attr( "fill", "#9C9C9C" )
 						.attr( "d", geoPathArea )
 						.style({'stroke-width': 0.3, 'stroke': '#E0E0E0', 'stroke-linejoin': 'round'});
-						//.style('opacity', );
+						// .style('opacity', .33);
+
+		var waterLayer = svg.append( "g" );
+		waterLayer.selectAll( "path" )
+						.data( water.features )
+						.enter()
+						.append( "path" )
+						.attr( "fill", "#CCCCCC" )
+						.attr( "d", geoPathArea )
+						.style({'stroke-width': 0.3, 'stroke': '#E0E0E0', 'stroke-linejoin': 'round'})
+						// .style('opacity', .33);
 
 		var rodents = svg.append( "g" );
 		rodents.selectAll( "path" )
