@@ -32,21 +32,17 @@ app.set('port', process.env.PORT || 3000);
 
 //routes
 app.get('/', function(req, res){
-  res.render('index');
+  // res.render('index');
+  res.render('maptimesandiego');
 });
 
 app.get('/testmap', function(req, res){
   res.render('map');
 });
 
-app.get('/maptimesandiego', function(req, res){
-  res.render('maptimesandiego');
-});
-
 app.get('/testBubble', function(req, res){
     res.render('testBubble');
 });
-
 
 app.get('/maptest', function(req, res){
     res.render('maptest');
