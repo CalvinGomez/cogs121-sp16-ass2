@@ -11,9 +11,11 @@
 	<script src="data/curtracts.js"></script>
 	<script src="data/bg.js"></script>
 	<script src="data/water.js"></script>
-
+	<script src="data/cbsa.js"></script>
+	
 </head>
 <body>
+
 	<script>
 		var width = 960, height = 590;
 
@@ -23,7 +25,7 @@
 		  .attr( "height", height );
 
 		var albersProjection = d3.geo.albers()
-                                        .scale( 22000 )
+                                        .scale( 22200 )
                                         .rotate( [71.057,0] )
                                         .center( [-46.3, 32.87] )
                                         .translate( [width/2,height/2] );
@@ -32,27 +34,44 @@
 		var geoPathCircle = d3.geo.path()
     						.projection( albersProjection )
             				.pointRadius(20);
-		
 
-		var sanDiegoCounty = svg.append( "g" );
-		sanDiegoCounty.selectAll( "path" )
+		// var sanDiegoCounty = svg.append( "g" );
+		// sanDiegoCounty.selectAll( "path" )
+		// 				.data( curtracts.features )
+		// 				.enter()
+		// 				.append( "path" )
+		// 				.attr( "fill", "#6468AD" )
+		// 				.attr( "d", geoPathArea );
+		// 				// .style('opacity', .30);
+		// var sanDiegoCounty = svg.append( "g" );
+		// sanDiegoCounty.selectAll( "path" )
+		// 				.data( cbsa.features )
+		// 				.enter()
+		// 				.append( "path" )
+		// 				.attr( "fill", "#6468ad" )
+		// 				.attr( "d", geoPathArea )
+		// 				 .style('opacity', .50);
+
+		var streets = svg.append( "g" );
+		streets.selectAll( "path" )
 						.data( curtracts.features )
 						.enter()
 						.append( "path" )
-						.attr( "fill", "#6468AD" )
-						.attr( "d", geoPathArea );
-						// .style('opacity', .30);
+						.attr( "fill", "#9C9C9C" )
+						.attr( "d", geoPathArea )
+						.style({'stroke-width': 0.3, 'stroke': '#E0E0E0', 'stroke-linejoin': 'round'});
+						//.style('opacity', );
 
-		// var rodents = svg.append( "g" );
-		// rodents.selectAll( "path" )
-		// 		  .data( rodents_json.features )
-		// 		  .enter()
-		// 		  .append( "path" )
-		// 		  .attr( "fill", "#81FFBF" )
-		// 		  //.attr("pointRadius", '10')
-		// 		  // .attr( "stroke", "#999" )
-		// 		  .attr( "d", geoPathCircle )
-		// 		  .style('opacity', .45);
+		var rodents = svg.append( "g" );
+		rodents.selectAll( "path" )
+				  .data( rodents_json.features )
+				  .enter()
+				  .append( "path" )
+				  .attr( "fill", "#88FFF3" )
+				  //.attr("pointRadius", '10')
+				  // .attr( "stroke", "#999" )
+				  .attr( "d", geoPathCircle )
+				  .style('opacity', .45);
 				
 	</script>
 </body>
