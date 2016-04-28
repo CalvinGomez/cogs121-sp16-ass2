@@ -48,6 +48,7 @@ app.get('/maptest', function(req, res){
     res.render('maptest');
 });
 
+
 var publicConfig = {
     key: 'AIzaSyB1O7kYkkWMOTnwCot5uYBtPBPy9-OpHTs',
     stagger_time:       1000, // for elevationPath
