@@ -15,6 +15,7 @@
 	
 </head>
 <body>
+
 	<script>
 		var width = 960, height = 660;
 
@@ -34,34 +35,31 @@
     						.projection( albersProjection )
             				.pointRadius(20);
 		
-		var sanDiegoCounty = svg.append( "g" );
-		sanDiegoCounty.selectAll( "path" )
-						.data( curtracts.features )
-						.enter()
-						.append( "path" )
-<<<<<<< HEAD
-						.attr( "fill", "#6468AD" )
-=======
-						.attr( "fill", "black" )
-						.attr( "d", geoPathArea )
-						// .style('opacity', .50);
+		// var sanDiegoCounty = svg.append( "g" );
+		// sanDiegoCounty.selectAll( "path" )
+		// 				.data( cbsa.features )
+		// 				.enter()
+		// 				.append( "path" )
+		// 				.attr( "fill", "#6468ad" )
+		// 				.attr( "d", geoPathArea )
+		// 				 .style('opacity', .50);
 
 		var streets = svg.append( "g" );
 		streets.selectAll( "path" )
 						.data( curtracts.features )
 						.enter()
 						.append( "path" )
-						.attr( "fill", "black" )
->>>>>>> 5b827d4cbc746f7c3a1515ff9d0f4faff9426022
+						.attr( "fill", "#9C9C9C" )
 						.attr( "d", geoPathArea )
-						.style('opacity', 0);
+						.style({'stroke-width': 0.3, 'stroke': '#E0E0E0', 'stroke-linejoin': 'round'});
+						//.style('opacity', );
 
 		var rodents = svg.append( "g" );
 		rodents.selectAll( "path" )
 				  .data( rodents_json.features )
 				  .enter()
 				  .append( "path" )
-				  .attr( "fill", "#80B1E3" )
+				  .attr( "fill", "#88FFF3" )
 				  //.attr("pointRadius", '10')
 				  // .attr( "stroke", "#999" )
 				  .attr( "d", geoPathCircle )
