@@ -6,10 +6,11 @@
 	<script src="data/sandiego.js"></script>
 	<script src="data/counties.js"></script>
 	<script src="data/rodents.js"></script>
+	<script src="data/san-diego.js"></script>
 </head>
 <body>
 	<script>
-		var width = 960, height = 660;
+		var width = 960, height = 590;
 
 		var svg = d3.select( "body" )
 		  .append( "svg" )
@@ -30,7 +31,7 @@
             				.pointRadius(10);
 		
 		neighborhoods.selectAll( "path" )
-						.data( sandiego_json.features )
+						.data( sandiego_json1.features )
 						.enter()
 						.append( "path" )
 						.attr( "fill", "#ccc" )
