@@ -37,6 +37,7 @@ app.get('/', function(req, res){
 });
 
 app.get('/testmap', function(req, res){
+  console.log(app.locals.barcoor);
   res.render('map');
 });
 
@@ -45,6 +46,7 @@ app.get('/testBubble', function(req, res){
 });
 
 app.get('/maptest', function(req, res){
+    console.log("Entered maptest!");
     res.render('maptest');
 });
 
@@ -86,40 +88,64 @@ app.get('/delphidata', function (req, res) {
   }).catch(error => {
     //console.log("ERROR:", error);
   });
-    db.any(sqlStr2, [true]).then(data => {
-        //console.log("DATA:", data);
-        var i=0;
-        var streetArray=[];
-        while (i<data.length){
-            if(data[i].CITY&&data[i].STRTYP&&data[i].STRNAM){
-                var str= data[i].STRNAM+' '+data[i].STRTYP+', '+data[i].CITY;
-                streetArray.push(str);
-            }
-            i++;
+  db.any(sqlStr2, [true]).then(data => {
+    //console.log("DATA:", data);
+    var i=0;
+    var streetArray=[];
+    while (i<data.length){
+        if(data[i].CITY&&data[i].STRTYP&&data[i].STRNAM){
+            var str= data[i].STRNAM+' '+data[i].STRTYP+', '+data[i].CITY;
+            streetArray.push(str);
         }
-        //var xmlhttp = new XMLHttpRequest();
-        //console.log(streetArray);
-        i=0;
-        var coorArray=[];
+        i++;
+    }
+    //var xmlhttp = new XMLHttpRequest();
+    // console.log(streetArray);
+    var j=0;
+    var coorArray=[];
 
-        while (i<1) {
-            gmAPI.geocode({"address": streetArray[i]}, function (err, result) {
-                console.log(result);
-                console.log(streetArray[i]);
-                console.log(result.results[0].geometry.location);
-                if (err) {throw err} else {
-                    //console.log(result);
-                    var latlng = {'lat': result.results[0].geometry.location.lat, 'lng': result.results[0].geometry.location.lng};
-                    coorArray.push(latlng);
-                }
-            });
-            i++;
-        }
-        //console.log(coorArray);
+    // while (j<5) {
+    //     gmAPI.geocode({"address": streetArray[j]}, function (err, result) {
+    //         // console.log(result);
+    //         // console.log(streetArray[j]);
+    //         // console.log(result.results[0].geometry.location);
+    //         if (err) {throw err} else {
+    //             //console.log(result);
+    //             var latlng = {'lat': result.results[0].geometry.location.lat, 'lng': result.results[0].geometry.location.lng};
+    //             // console.log(latlng);
+    //             coorArray.push(latlng);
+    //             // app.locals.barcoor.push(latlng);
+    //             // console.log(coorArray);
+    //         }
+    //     });
+    //     j++;
 
-}).catch(error => {
+    // }
+    // console.log(coorArray);
+
+    // ...
+    streetArray.forEach(function(arrayElement) {
+      // ... code code code for this one element
+      gmAPI.geocode({"address": arrayElement}, function (err, result) {
+            // console.log(result);
+            // console.log(arrayElement);
+            console.log(result.results[0].geometry.location);
+            // if (err) {throw err} else {
+            //     //console.log(result);
+            //     var latlng = {'lat': result.results[0].geometry.location.lat, 'lng': result.results[0].geometry.location.lng};
+            //     // console.log(latlng);
+            //     coorArray.push(latlng);
+            //     // app.locals.barcoor.push(latlng);
+            //     // console.log(coorArray);
+            // }
+        });
+    });
+    console.log(coorArray);
+
+  }).catch(error => {
         //console.log("ERROR:", error);
-});
+  });
+  res.redirect('/');
 
 });
 
