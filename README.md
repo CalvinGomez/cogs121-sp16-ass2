@@ -28,16 +28,6 @@ SIX DESIGN PRINCIPLES:
 	-Bubbles do not overlap; instead, multiple areas of the activity in the same region will be encompassed by a single bubble, and then upon zooming in, the bubble will split into several that are more accurate to the places with activities within that region. 
 
 
-DECISION JUSTIFICATION:
-
-	We did this shit because...
-
-	ex. If you used any external CSS/JS libraries (ie. Boostrap, Materialize) analyze what motivated your team to do so and describe how it fits into your design goals. 
-
-	ex. If you implemented any custom CSS/JS components explain why this decision was appropriate and how did it fit into your design.
-
-
-
 TEAMWORK BREAKDOWN:
 
 
