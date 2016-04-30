@@ -9,6 +9,7 @@ var dotenv = require('dotenv');
 var pg = require('pg');
 var app = express();
 var gmap=require('googlemaps');
+var async = require('async');
 
 //client id and client secret here, taken from .env (which you need to create)
 dotenv.load();
@@ -61,6 +62,9 @@ var publicConfig = {
 var gmAPI = new gmap(publicConfig);
 
 app.get('/delphidata', function (req, res) {
+
+  var coorArray=[];
+  var tempCoorArray=[];
   // TODO
   // Connect to the DELPHI Database and return the proper information
   // that will be displayed on the D3 visualization
@@ -99,13 +103,18 @@ app.get('/delphidata', function (req, res) {
         }
         i++;
     }
-    //var xmlhttp = new XMLHttpRequest();
     // console.log(streetArray);
-    var j=0;
-    var coorArray=[];
+    // var n = 100;
+    // var tempStreetArrays = [];
+    // for (i = 0; i < n; i++) {
+    //   tempStreetArrays.push(streetArray[i]);
+    // }
 
-    // while (j<5) {
-    //     gmAPI.geocode({"address": streetArray[j]}, function (err, result) {
+    // async.each(tempStreetArrays,
+    //     // 2nd param is the function that each item is passed to
+    //     function(tempStreetArray, callback){
+    //       // Call an asynchronous function, often a save() to DB
+    //       gmAPI.geocode({"address": tempStreetArray}, function (err, result) {
     //         // console.log(result);
     //         // console.log(streetArray[j]);
     //         // console.log(result.results[0].geometry.location);
@@ -117,30 +126,16 @@ app.get('/delphidata', function (req, res) {
     //             // app.locals.barcoor.push(latlng);
     //             // console.log(coorArray);
     //         }
-    //     });
-    //     j++;
-
-    // }
-    // console.log(coorArray);
-
-    // ...
-    streetArray.forEach(function(arrayElement) {
-      // ... code code code for this one element
-      gmAPI.geocode({"address": arrayElement}, function (err, result) {
-            // console.log(result);
-            // console.log(arrayElement);
-            console.log(result.results[0].geometry.location);
-            // if (err) {throw err} else {
-            //     //console.log(result);
-            //     var latlng = {'lat': result.results[0].geometry.location.lat, 'lng': result.results[0].geometry.location.lng};
-            //     // console.log(latlng);
-            //     coorArray.push(latlng);
-            //     // app.locals.barcoor.push(latlng);
-            //     // console.log(coorArray);
-            // }
-        });
-    });
-    console.log(coorArray);
+    //         callback();
+    //       });
+    //     },
+    //     // 3rd param is the function to call when everything's done
+    //     function(err){
+    //       // All tasks are done now
+    //       // doSomethingOnceAllAreDone();
+    //       res.send(coorArray);
+    //     }
+    // );
 
   }).catch(error => {
         //console.log("ERROR:", error);
