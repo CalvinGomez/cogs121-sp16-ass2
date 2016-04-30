@@ -10,6 +10,7 @@ var pg = require('pg');
 var app = express();
 var gmap=require('googlemaps');
 var async = require('async');
+var jsonfile = require('jsonfile')
 
 //client id and client secret here, taken from .env (which you need to create)
 dotenv.load();
@@ -34,6 +35,38 @@ app.set('port', process.env.PORT || 3000);
 //routes
 app.get('/', function(req, res){
   // res.render('index');
+  var file = 'public/data/bars.json';
+  var jsFileString = [];
+  jsonfile.readFile(file, function(err, obj) {
+    if (err) { throw err;}
+    // console.log(typeof obj)
+    for (var f in obj) {
+      jsFileString.push({
+          "type": "Feature", 
+          "geometry":{
+            "type": "Point", 
+            "coordinates": [obj[f].lng, obj[f].lat]
+          }
+      });
+    }
+    var writeString = ""
+    for (var i = 0; i <jsFileString.length; i++) {
+      if (i!=jsFileString.length-1) {
+        writeString = writeString + JSON.stringify(jsFileString[i])+",";
+      }
+      else  {
+        writeString = writeString + JSON.stringify(jsFileString[i]);          
+      }
+    }
+
+    var barsJSONString = "{\"type\"\: \"FeatureCollection\",\"features\"\: [" +
+                      writeString +
+                      "]}";
+    // var fileWrite = 'public/data/bars.js'   ;  
+    // jsonfile.writeFile(fileWrite, JSON.parse(barsJSONString), function (err) {
+    //   if (err) {throw err;}
+    // });
+  });
   res.render('maptimesandiego');
 });
 
@@ -62,7 +95,6 @@ var publicConfig = {
 var gmAPI = new gmap(publicConfig);
 
 app.get('/delphidata', function (req, res) {
-
   var coorArray=[];
   var tempCoorArray=[];
   // TODO
@@ -140,6 +172,7 @@ app.get('/delphidata', function (req, res) {
   }).catch(error => {
         //console.log("ERROR:", error);
   });
+  // console.log("Reached");
   res.redirect('/');
 
 });

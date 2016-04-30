@@ -9,6 +9,7 @@
 	<script type="text/javascript" src="data/rodents.js"></script>
 	<script type="text/javascript" src="data/curtracts.js"></script>
 	<script type="text/javascript" src="data/water.js"></script>
+	<script type="text/javascript" src="data/bars.js"></script>
 
 <!-- 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script type="text/javascript">
@@ -28,11 +29,12 @@
 	<script src="data/curtracts.js"></script>
 
 	<script>
-		var width = 960, height = 590;
+		var width = 960, height = 590,centered;
 		var svg = d3.select( "body" )
-		  .append( "svg" )
-		  .attr( "width", width )
-		  .attr( "height", height );
+					  .append( "svg" )
+					  .attr( "width", width )
+					  .attr( "height", height );
+
 		var albersProjection = d3.geo.albers()
                                         .scale( 30000 )
                                         .rotate( [117.057,0] )
@@ -40,12 +42,13 @@
                                         .translate( [width/2,height/2] );
 		var geoPathArea = d3.geo.path()
     						.projection( albersProjection );
-		var geoPathCircle = d3.geo.path()
-    						.projection( albersProjection )
-            				.pointRadius(20);
+		// var geoPathCircle = d3.geo.path()
+  //   						.projection( albersProjection );
+            				// .pointRadius(20);
 
 		var streets = svg.append( "g" );
-		streets.selectAll( "path" )
+		streets.append("g")
+						.selectAll( "path" )
 						.data( curtracts.features )
 						.enter()
 						.append( "path" )
@@ -55,7 +58,8 @@
 						// .style('opacity', .33);
 
 		var waterLayer = svg.append( "g" );
-		waterLayer.selectAll( "path" )
+		waterLayer.append("g")
+						.selectAll( "path" )
 						.data( water.features )
 						.enter()
 						.append( "path" )
@@ -64,16 +68,66 @@
 						.style({'stroke-width': 0.3, 'stroke': '#E0E0E0', 'stroke-linejoin': 'round'});
 						// .style('opacity', .33);
 
-		var rodents = svg.append( "g" );
-		rodents.selectAll( "path" )
-				  .data( rodents_json.features )
+		// var rodents = svg.append( "g" );
+		// rodents.selectAll( "path" )
+		// 		  .data( rodents_json.features )
+		// 		  .enter()
+		// 		  .append( "path" )
+		// 		  .attr( "fill", "#88FFE5" )
+		// 		  //.attr("pointRadius", '10')
+		// 		  // .attr( "stroke", "#999" )
+		// 		  .attr( "d", geoPathCircle )
+		// 		  .style('opacity', .45);
+
+		var bars = svg.append( "g" );
+		bars.append("g")
+				.selectAll( "path" )
+				  .data( bars_json.features )
 				  .enter()
 				  .append( "path" )
 				  .attr( "fill", "#88FFE5" )
 				  //.attr("pointRadius", '10')
 				  // .attr( "stroke", "#999" )
-				  .attr( "d", geoPathCircle )
-				  .style('opacity', .45);
+				  .attr( "d", geoPathArea )
+				  .style('opacity', .45)
+				  .on("click", clicked);
+
+	  	function clicked(d) {
+		  var x, y, k;
+
+		  if (d && centered !== d) {
+		    var centroid = geoPathArea.centroid(d);
+		    x = centroid[0];
+		    y = centroid[1];
+		    k = 4;
+		    centered = d;
+		  } else {
+		    x = width / 2;
+		    y = height / 2;
+		    k = 1;
+		    centered = null;
+		  }
+
+		  bars.selectAll("path")
+		      .classed("active", centered && function(d) { return d === centered; });
+		  streets.selectAll("path")
+		      .classed("active", centered && function(d) { return d === centered; });
+	      waterLayer.selectAll("path")
+		      .classed("active", centered && function(d) { return d === centered; });
+
+		  bars.transition()
+		      .duration(750)
+		      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+		      .style("stroke-width", 1.5 / k + "px");
+		  streets.transition()
+		      .duration(750)
+		      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+		      .style("stroke-width", 1.5 / k + "px");
+		  waterLayer.transition()
+		      .duration(750)
+		      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+		      .style("stroke-width", 1.5 / k + "px");
+		}
 				
 	</script>
 </body>
