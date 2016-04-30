@@ -14,7 +14,8 @@
     "googlemaps": "1.4.0",
     "jsonfile": "2.3.0",
     "pg-promise": "4.0.1",
-    "topojson": "1"
+    "topojson": "1",
+    "underscore": "1.8.3"
   },
   "main": "server.js",
   "devDependencies": {},

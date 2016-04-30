@@ -10,6 +10,7 @@
 	<script type="text/javascript" src="data/curtracts.js"></script>
 	<script type="text/javascript" src="data/water.js"></script>
 	<script type="text/javascript" src="data/bars.js"></script>
+	<script type="text/javascript" src="data/uniqueStreets.js"></script>
 
 <!-- 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script type="text/javascript">
@@ -93,7 +94,7 @@
 				  .on("click", clicked);
 
 		bars.selectAll("text")
-		    .data(bars_json.features)
+		    .data(uniqueStreets_json.features)
 		    .enter()
 		    .append("svg:text")
 		    .text(function(d){
@@ -106,7 +107,8 @@
 		        return  geoPathArea.centroid(d)[1];
 		    })
 		    .attr("text-anchor","middle")
-		    .attr('font-size','4pt');
+		    .attr('font-size','5.5pt')
+		  	.on("click", clicked);
 
 	  	function clicked(d) {
 		  var x, y, k;

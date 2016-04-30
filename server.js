@@ -10,7 +10,8 @@ var pg = require('pg');
 var app = express();
 var gmap=require('googlemaps');
 var async = require('async');
-var jsonfile = require('jsonfile')
+var jsonfile = require('jsonfile');
+var _ = require('underscore');
 
 //client id and client secret here, taken from .env (which you need to create)
 dotenv.load();
@@ -34,7 +35,6 @@ app.set('port', process.env.PORT || 3000);
 
 //routes
 app.get('/', function(req, res){
-  // res.render('index');
   var streetNamesFile = 'public/data/streetNames.json';
   jsonfile.readFile(streetNamesFile, function(err, streetNamesObj) {   
     if (err) { throw err;}
@@ -73,7 +73,47 @@ app.get('/', function(req, res){
       //   if (err) {throw err;}
       // });
     });
-  });  
+  });
+
+  // var streetNamesFile = 'public/data/uniqueStreetNames.json';
+  // jsonfile.readFile(streetNamesFile, function(err, streetNamesObj) {   
+  //   if (err) { throw err;}
+  //   var locationsFile = 'public/data/uniqueStreetNamesLocations.json';
+  //   var jsFileString = [];
+  //   jsonfile.readFile(locationsFile, function(err, obj) {
+  //     if (err) { throw err;}
+  //     // console.log(typeof obj)
+  //     for (var f = 0; f<obj.length; f++) {
+  //       jsFileString.push({
+  //           "type": "Feature", 
+  //           "geometry":{
+  //             "type": "Point", 
+  //             "coordinates": [obj[f].lng, obj[f].lat]
+  //           },
+  //           "properties":{
+  //               "name": streetNamesObj[f]
+  //           }
+  //         });
+  //     }
+  //     var writeString = ""
+  //     for (var i = 0; i <jsFileString.length; i++) {
+  //       if (i!=jsFileString.length-1) {
+  //         writeString = writeString + JSON.stringify(jsFileString[i])+",";
+  //       }
+  //       else  {
+  //         writeString = writeString + JSON.stringify(jsFileString[i]);          
+  //       }
+  //     }
+
+  //     var barsJSONString = "{\"type\"\: \"FeatureCollection\",\"features\"\: [" +
+  //                       writeString +
+  //                       "]}";
+  //     var fileWrite = 'public/data/uniqueStreets.js'   ;  
+  //     jsonfile.writeFile(fileWrite, JSON.parse(barsJSONString), function (err) {
+  //       if (err) {throw err;}
+  //     });
+  //   });
+  // });  
       
   res.render('maptimesandiego');
 });
@@ -145,16 +185,21 @@ app.get('/delphidata', function (req, res) {
         }
         i++;
     }
-    // console.log(streetArray);
-    // var n = 100;
+
+    // streetNameArray = _.uniq(streetNameArray);
+    // // console.log(tempStreetNameArray.length);
+    // // console.log(tempStreetNameArray);
+    // // console.log(streetArray);
+    // var n = 80;
     // var tempStreetArrays = [];
     // var tempStreetNameArray = [];
     // for (i = 0; i < n; i++) {
     //   tempStreetArrays.push(streetArray[i]);
     //   tempStreetNameArray.push(streetNameArray[i]);
     // }
+    // res.send(tempStreetNameArray);
 
-    // async.each(tempStreetArrays,
+    // async.each(tempStreetNameArray,
     //     // 2nd param is the function that each item is passed to
     //     function(tempStreetArray, callback){
     //       // Call an asynchronous function, often a save() to DB
