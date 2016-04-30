@@ -88,11 +88,25 @@
 				  .enter()
 				  .append( "path" )
 				  .attr( "fill", "#88FFE5" )
-				  //.attr("pointRadius", '10')
-				  // .attr( "stroke", "#999" )
 				  .attr( "d", geoPathArea )
 				  .style('opacity', .45)
 				  .on("click", clicked);
+
+		bars.selectAll("text")
+		    .data(bars_json.features)
+		    .enter()
+		    .append("svg:text")
+		    .text(function(d){
+		        return d.properties.name;
+		    })
+		    .attr("x", function(d){
+		        return geoPathArea.centroid(d)[0];
+		    })
+		    .attr("y", function(d){
+		        return  geoPathArea.centroid(d)[1];
+		    })
+		    .attr("text-anchor","middle")
+		    .attr('font-size','4pt');
 
 	  	function clicked(d) {
 		  var x, y, k;

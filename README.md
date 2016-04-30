@@ -35,7 +35,7 @@ Alisa-  Helped with the front end; finalized map design; did README
 
 Arnold- Helped with the back end; fetched data from DELPHI.
 
-Calvin- Lead the team and delegated tasks; helped with both front and back ends; fetched data from DELPHI, implemented the base map.
+Calvin- Lead the team and delegated tasks; helped with both front and back ends; fetched data from DELPHI, implemented the base map. Added Bars data to the map. Added zoom functionality to the map.
 
 Diana-  Helped with the front end design; found the data sets to pull from; 
 

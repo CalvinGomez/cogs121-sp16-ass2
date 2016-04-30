@@ -35,38 +35,46 @@ app.set('port', process.env.PORT || 3000);
 //routes
 app.get('/', function(req, res){
   // res.render('index');
-  var file = 'public/data/bars.json';
-  var jsFileString = [];
-  jsonfile.readFile(file, function(err, obj) {
+  var streetNamesFile = 'public/data/streetNames.json';
+  jsonfile.readFile(streetNamesFile, function(err, streetNamesObj) {   
     if (err) { throw err;}
-    // console.log(typeof obj)
-    for (var f in obj) {
-      jsFileString.push({
-          "type": "Feature", 
-          "geometry":{
-            "type": "Point", 
-            "coordinates": [obj[f].lng, obj[f].lat]
-          }
-      });
-    }
-    var writeString = ""
-    for (var i = 0; i <jsFileString.length; i++) {
-      if (i!=jsFileString.length-1) {
-        writeString = writeString + JSON.stringify(jsFileString[i])+",";
+    var barsFile = 'public/data/bars.json';
+    var jsFileString = [];
+    jsonfile.readFile(barsFile, function(err, obj) {
+      if (err) { throw err;}
+      // console.log(typeof obj)
+      for (var f = 0; f<obj.length; f++) {
+        jsFileString.push({
+            "type": "Feature", 
+            "geometry":{
+              "type": "Point", 
+              "coordinates": [obj[f].lng, obj[f].lat]
+            },
+            "properties":{
+                "name": streetNamesObj[f]
+            }
+          });
       }
-      else  {
-        writeString = writeString + JSON.stringify(jsFileString[i]);          
+      var writeString = ""
+      for (var i = 0; i <jsFileString.length; i++) {
+        if (i!=jsFileString.length-1) {
+          writeString = writeString + JSON.stringify(jsFileString[i])+",";
+        }
+        else  {
+          writeString = writeString + JSON.stringify(jsFileString[i]);          
+        }
       }
-    }
 
-    var barsJSONString = "{\"type\"\: \"FeatureCollection\",\"features\"\: [" +
-                      writeString +
-                      "]}";
-    // var fileWrite = 'public/data/bars.js'   ;  
-    // jsonfile.writeFile(fileWrite, JSON.parse(barsJSONString), function (err) {
-    //   if (err) {throw err;}
-    // });
-  });
+      var barsJSONString = "{\"type\"\: \"FeatureCollection\",\"features\"\: [" +
+                        writeString +
+                        "]}";
+      // var fileWrite = 'public/data/bars.js'   ;  
+      // jsonfile.writeFile(fileWrite, JSON.parse(barsJSONString), function (err) {
+      //   if (err) {throw err;}
+      // });
+    });
+  });  
+      
   res.render('maptimesandiego');
 });
 
@@ -128,18 +136,22 @@ app.get('/delphidata', function (req, res) {
     //console.log("DATA:", data);
     var i=0;
     var streetArray=[];
+    var streetNameArray = [];
     while (i<data.length){
         if(data[i].CITY&&data[i].STRTYP&&data[i].STRNAM){
             var str= data[i].STRNAM+' '+data[i].STRTYP+', '+data[i].CITY;
             streetArray.push(str);
+            streetNameArray.push(data[i].STRNAM+' '+data[i].STRTYP);
         }
         i++;
     }
     // console.log(streetArray);
     // var n = 100;
     // var tempStreetArrays = [];
+    // var tempStreetNameArray = [];
     // for (i = 0; i < n; i++) {
     //   tempStreetArrays.push(streetArray[i]);
+    //   tempStreetNameArray.push(streetNameArray[i]);
     // }
 
     // async.each(tempStreetArrays,
