@@ -2,9 +2,8 @@
 <html>
 <head>
 	<title>A D3 map</title>
-
-	<!-- <link href="css/index.css" rel="stylesheet"> -->
-
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
 	<script type="text/javascript" src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 	<script type="text/javascript" src="data/rodents.js"></script>
 	<script type="text/javascript" src="data/curtracts.js"></script>
@@ -12,18 +11,19 @@
 	<script type="text/javascript" src="data/bars.js"></script>
 	<script type="text/javascript" src="data/uniqueStreets.js"></script>
 
-<!-- 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	<script type="text/javascript">
-		$(window).load(function() {
-			$(".loader").fadeOut("slow");
-		})
-	</script> -->
-
 	
 </head>
 <body>
-	<!-- <div class="loader"></div> -->
-	
+	<!-- <div id="ac-wrapper">
+	  <div id="popup">
+		  <center>
+		    <h2>Popup Content Here</h2>
+		  </center>
+	  </div>
+	</div> -->
+
+	<!-- <div id="dialog" title="Dialog Title">I'm in a dialog</div> -->
+
 	<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 	<script src="data/rodents.js"></script>
 	<script src="data/water.js"></script>
@@ -69,18 +69,6 @@
 						.attr( "d", geoPathArea )
 						.style({'stroke-width': 0.3, 'stroke': '#E0E0E0', 'stroke-linejoin': 'round'})
 						.on("click", clicked);
-						// .style('opacity', .33);
-
-		// var rodents = svg.append( "g" );
-		// rodents.selectAll( "path" )
-		// 		  .data( rodents_json.features )
-		// 		  .enter()
-		// 		  .append( "path" )
-		// 		  .attr( "fill", "#88FFE5" )
-		// 		  //.attr("pointRadius", '10')
-		// 		  // .attr( "stroke", "#999" )
-		// 		  .attr( "d", geoPathCircle )
-		// 		  .style('opacity', .45);
 
 		var bars = svg.append( "g" );
 		bars.append("g")
@@ -146,6 +134,20 @@
 		      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
 		      .style("stroke-width", 1.5 / k + "px");
 		}
+
+		// function PopUp(){
+  //       	document.getElementById('ac-wrapper').style.display="none"; 
+		// }
+		// $(document).ready(function(){
+		//    setTimeout(function(){
+		//       PopUp();
+		//    },1000); // 1000 to load it after 1 second from page load
+		// });
+
+		// $(document).ready(function() {
+		//     $("#dialog").dialog();
+		// });
+		window.alert("Click on the green circles to zoom in!");
 				
 	</script>
 </body>
